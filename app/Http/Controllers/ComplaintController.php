@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
 use App\Models\Complaint;
+use App\Models\ComplaintType;
 
 class ComplaintController extends Controller
 {
@@ -13,7 +14,9 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        //
+        $complaints = Complaint::paginate(20);
+
+        return view('complaints.index', compact('complaints'));
     }
 
     /**
@@ -45,7 +48,9 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
-        //
+        $complaint_types = ComplaintType::all();
+
+        return view('complaints.edit', compact('complaint', 'complaint_types'));
     }
 
     /**
@@ -53,7 +58,7 @@ class ComplaintController extends Controller
      */
     public function update(UpdateComplaintRequest $request, Complaint $complaint)
     {
-        //
+        dd($request->all());
     }
 
     /**
