@@ -1,8 +1,7 @@
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
 
-// Variables
-@import 'variables';
+@import url('https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css');
 
-// Bootstrap
-@import 'bootstrap/scss/bootstrap';
+:root {
+  --tblr-font-sans-serif: 'Work Sans', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+}
