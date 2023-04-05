@@ -20,7 +20,6 @@ class ComplaintFactory extends Factory
             'uuid' => fake()->uuid(),
             'title' => fake()->sentence(),
             'body' => fake()->paragraph(),
-            'complaint_type_id' => \App\Models\ComplaintType::pluck('id')->random(),
             'created_by' => \App\Models\User::pluck('id')->random(),
             'created_by' => \App\Models\User::pluck('id')->random(),
         ];

@@ -24,7 +24,6 @@ class StoreComplaintRequest extends FormRequest
         return [
             'title' => ['required'],
             'body' => ['required'],
-            'complaint_type_id' => ['required'],
         ];
     }
 }

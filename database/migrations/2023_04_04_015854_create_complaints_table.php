@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->string('title');
             $table->text('body');
-            $table->integer('complaint_type_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->softDeletes();

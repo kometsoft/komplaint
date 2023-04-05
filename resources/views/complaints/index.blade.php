@@ -21,7 +21,6 @@
                                 <th>#</th>
                                 <th>ID</th>
                                 <th>Title</th>
-                                <th>Type</th>
                                 <th>Status</th>
                                 <th>Created at</th>
                                 <th class="w-1"></th>
@@ -33,7 +32,6 @@
                                 <td>{{ $loop->iteration }}.</td>
                                 <td>{{ $complaint->id }}</td>
                                 <td>{{ $complaint->title }}</td>
-                                <td>{{ $complaint->complaint_type->name }}</td>
                                 <td>
                                     <span
                                         class="badge {{ $complaint->actions()->latest()->first()->action_status->class }}">

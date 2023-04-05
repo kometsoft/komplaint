@@ -28,9 +28,8 @@ class ComplaintController extends Controller
     public function create()
     {
         $complaint = new Complaint();
-        $complaint_types = ComplaintType::all();
 
-        return view('complaints.create', compact('complaint', 'complaint_types'));
+        return view('complaints.create', compact('complaint'));
     }
 
     /**
@@ -42,7 +41,6 @@ class ComplaintController extends Controller
             'uuid' => Str::uuid(),
             'title' => $request->title,
             'body' => $request->body,
-            'complaint_type_id' => $request->complaint_type_id,
         ]);
 
         $complaint->actions()->create([
@@ -73,10 +71,9 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
-        $complaint_types = ComplaintType::all();
         $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
 
-        return view('complaints.edit', compact('complaint', 'complaint_types', 'action_statuses'));
+        return view('complaints.edit', compact('complaint', 'action_statuses'));
     }
 
     /**
@@ -87,7 +84,6 @@ class ComplaintController extends Controller
         $complaint->update([
             'title' => $request->title,
             'body' => $request->body,
-            'complaint_type_id' => $request->complaint_type_id,
         ]);
 
         if ($request->hasFile('attachment')) {

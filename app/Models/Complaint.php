@@ -14,11 +14,6 @@ class Complaint extends Model implements HasMedia
 
     protected $guarded = [];
 
-    public function complaint_type()
-    {
-        return $this->belongsTo(ComplaintType::class);
-    }
-
     public function actions()
     {
         return $this->hasMany(Action::class);

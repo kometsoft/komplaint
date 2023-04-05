@@ -55,29 +55,6 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-md-3 col-form-label required">Complaint Types</label>
-                        <div class="col">
-                            <div class="form-selectgroup">
-                                @forelse ($complaint_types as $complaint_type)
-                                <label class="form-selectgroup-item">
-                                    <input
-                                        type="radio"
-                                        name="complaint_type_id"
-                                        value="{{ $complaint_type->id }}"
-                                        @checked($complaint_type->id === $complaint->complaint_type_id)
-                                        class="form-selectgroup-input"
-                                    >
-                                    <div class="form-selectgroup-label d-flex align-items-center">
-                                        <span class="form-selectgroup-check me-3"></span>
-                                        {{ $complaint_type->name }}
-                                    </div>
-                                </label>
-                                @empty
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Attachment</label>
                         <div class="col">
                             <div class="row">
