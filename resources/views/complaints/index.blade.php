@@ -35,11 +35,14 @@
                                 <td>{{ $complaint->id }}</td>
                                 <td>{{ $complaint->title }}</td>
                                 <td>{{ $complaint->complaint_type->name }}</td>
-                                <td>{{ $complaint->actions()->latest()->first()->status }}</td>
+                                <td>
+                                    <span
+                                        class="badge {{ $complaint->actions()->latest()->first()->action_status->class }}">
+                                        {{ $complaint->actions()->latest()->first()->action_status->name }}</span>
+                                </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                                 <td>{{ $complaint->updated_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">
-                                    <a href="{{ route('complaints.show', $complaint) }}">View</a>
                                     <a href="{{ route('complaints.edit', $complaint) }}">Edit</a>
                                 </td>
                             </tr>

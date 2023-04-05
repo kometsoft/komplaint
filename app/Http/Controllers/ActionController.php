@@ -30,7 +30,7 @@ class ActionController extends Controller
     public function store(StoreActionRequest $request)
     {
         Action::create([
-            'status' => $request->status,
+            'action_status_id' => $request->action_status_id,
             'description' => $request->description,
             'complaint_id' => $request->complaint_id,
         ]);

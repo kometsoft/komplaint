@@ -121,10 +121,10 @@
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Status</label>
                         <div class="col">
-                            <select class="form-select" name="status">
+                            <select class="form-select" name="action_status_id">
                                 <option></option>
                                 @forelse ($action_statuses as $action_status)
-                                <option value="{{ $action_status->name }}">{{ $action_status->name }}</option>
+                                <option value="{{ $action_status->id }}">{{ $action_status->name }}</option>
                                 @empty
                                 @endforelse
                             </select>
@@ -151,7 +151,10 @@
                             @forelse ($complaint->actions as $action)
                             <tr>
                                 <td>{{ $loop->iteration }}.</td>
-                                <td>{{ $action->status }}</td>
+                                <td>
+                                    <span class="badge {{ $action->action_status->class }}">
+                                        {{ $action->action_status->name }}</span>
+                                </td>
                                 <td>{{ $action->description }}</td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                             </tr>

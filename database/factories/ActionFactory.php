@@ -19,7 +19,7 @@ class ActionFactory extends Factory
         return [
             'complaint_id' => \App\Models\Complaint::pluck('id')->random(),
             'description' => fake()->sentence(),
-            'status' => fake()->randomElement(['In Progress', 'Completed', 'Pending']),
+            'action_status_id' => \App\Models\ActionStatus::pluck('id')->random(),
             'created_by' => \App\Models\User::pluck('id')->random(),
         ];
     }

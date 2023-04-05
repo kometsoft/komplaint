@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             \Database\Seeders\ComplaintTypeSeeder::class,
+            \Database\Seeders\ActionStatusSeeder::class,
         ]);
 
         \App\Models\User::factory()->create([

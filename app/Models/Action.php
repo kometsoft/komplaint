@@ -10,4 +10,9 @@ class Action extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function action_status()
+    {
+        return $this->belongsTo(ActionStatus::class);
+    }
 }

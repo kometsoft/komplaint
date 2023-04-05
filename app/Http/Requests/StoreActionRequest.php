@@ -22,7 +22,7 @@ class StoreActionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required'],
+            'action_status_id' => ['required'],
             'description' => ['required'],
         ];
     }

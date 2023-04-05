@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\ComplaintType;
 use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
+use App\Models\ActionStatus;
 use App\Notifications\NewComplaintNotification;
 
 class ComplaintController extends Controller
@@ -16,7 +17,7 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = Complaint::paginate(20);
+        $complaints = Complaint::latest()->paginate(20);
 
         return view('complaints.index', compact('complaints'));
     }
@@ -45,12 +46,12 @@ class ComplaintController extends Controller
         ]);
 
         $complaint->actions()->create([
-            'status' => 'Pending',
+            'action_status_id' => ActionStatus::PENDING,
             'description' => 'Complaint will be reviewed',
             'complaint_id' => $complaint->id,
         ]);
 
-        \App\Models\User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
+        // \App\Models\User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
 
         return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
     }
@@ -69,10 +70,7 @@ class ComplaintController extends Controller
     public function edit(Complaint $complaint)
     {
         $complaint_types = ComplaintType::all();
-        $action_statuses = collect([
-            (object) ['name' => 'In Progress'],
-            (object) ['name' => 'Completed'],
-        ]);
+        $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
 
         return view('complaints.edit', compact('complaint', 'complaint_types', 'action_statuses'));
     }
