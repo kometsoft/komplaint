@@ -26,7 +26,7 @@
         @endif
 
         <div class="col-md-10">
-            <form action="{{ route('complaints.store') }}" method="post" class="card">
+            <form action="{{ route('complaints.store') }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
                 <div class="card-header">
                     <div class="card-title">{{ __('Complaints') }}</div>
@@ -57,14 +57,23 @@
                                         type="radio"
                                         name="complaint_type_id"
                                         value="{{ $complaint_type->id }}"
-                                        class="form-selectgroup-input"
                                         @checked($complaint_type->id === $complaint->complaint_type_id)
+                                        class="form-selectgroup-input"
                                     >
-                                    <span class="form-selectgroup-label">{{ $complaint_type->name }}</span>
+                                    <div class="form-selectgroup-label d-flex align-items-center">
+                                        <span class="form-selectgroup-check me-3"></span>
+                                        {{ $complaint_type->name }}
+                                    </div>
                                 </label>
                                 @empty
                                 @endforelse
                             </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label required">Attachment</label>
+                        <div class="col">
+                            <input type="file" class="form-control" name="attachment">
                         </div>
                     </div>
                 </div>

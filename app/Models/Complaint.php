@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Traits\Causer;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Complaint extends Model
+class Complaint extends Model implements HasMedia
 {
-    use HasFactory, Causer;
+    use HasFactory, Causer, InteractsWithMedia;
 
     protected $guarded = [];
 

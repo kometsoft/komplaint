@@ -51,6 +51,10 @@ class ComplaintController extends Controller
             'complaint_id' => $complaint->id,
         ]);
 
+        $request->hasFile('attachment') && $complaint
+            ->addMediaFromRequest('attachment')
+            ->toMediaCollection();
+
         // \App\Models\User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
 
         return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
@@ -85,6 +89,13 @@ class ComplaintController extends Controller
             'body' => $request->body,
             'complaint_type_id' => $request->complaint_type_id,
         ]);
+
+        if ($request->hasFile('attachment')) {
+            $complaint->clearMediaCollection();
+            $complaint
+                ->addMediaFromRequest('attachment')
+                ->toMediaCollection();
+        }
 
         return back()->with('success', 'Record has been saved!');
     }

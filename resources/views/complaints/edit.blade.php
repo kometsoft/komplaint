@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <div class="row row-cards justify-content-center">
+    <div class="row row-cards">
         @if ($errors->isNotEmpty())
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="alert alert-danger mb-0" role="alert">
                 <h4 class="alert-title">An error occured!</h4>
                 <ul class="">
@@ -17,7 +17,7 @@
         @endif
 
         @if (session('success'))
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="alert alert-success mb-0" role="alert">
                 <h4 class="alert-title">Success!</h4>
                 <div>{{ session('success') }}</div>
@@ -25,8 +25,8 @@
         </div>
         @endif
 
-        <div class="col-md-10">
-            <form action="{{ route('complaints.update', $complaint) }}" method="post" class="card">
+        <div class="col-md-6">
+            <form action="{{ route('complaints.update', $complaint) }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="card-header">
@@ -64,13 +64,37 @@
                                         type="radio"
                                         name="complaint_type_id"
                                         value="{{ $complaint_type->id }}"
-                                        class="form-selectgroup-input"
                                         @checked($complaint_type->id === $complaint->complaint_type_id)
+                                        class="form-selectgroup-input"
                                     >
-                                    <span class="form-selectgroup-label">{{ $complaint_type->name }}</span>
+                                    <div class="form-selectgroup-label d-flex align-items-center">
+                                        <span class="form-selectgroup-check me-3"></span>
+                                        {{ $complaint_type->name }}
+                                    </div>
                                 </label>
                                 @empty
                                 @endforelse
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label required">Attachment</label>
+                        <div class="col">
+                            <div class="row">
+                                @if ($complaint->getMedia()->isNotEmpty())
+                                <div class="col-md-6 mb-3">
+                                    <div class="btn-list">
+                                        @foreach ($complaint->getMedia() as $media)
+                                        <a href="{{ $media->getUrl() }}" target="_blank" class="btn">
+                                            {{ $media->file_name }}
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="col-md-12">
+                                    <input type="file" class="form-control" name="attachment">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +138,7 @@
             </form>
         </div>
 
-        <div class="col-md-10">
+        <div class="col-md-6">
             <form action="{{ route('actions.store', ['complaint_id' => $complaint->id]) }}" method="post" class="card"
                 id="actions-card">
                 @csrf
@@ -135,10 +159,13 @@
                                         type="radio"
                                         name="action_status_id"
                                         value="{{ $action_status->id }}"
-                                        class="form-selectgroup-input"
                                         @checked($action_status->id === $complaint->action_status_id)
+                                        class="form-selectgroup-input"
                                     >
-                                    <span class="form-selectgroup-label">{{ $action_status->name }}</span>
+                                    <div class="form-selectgroup-label d-flex align-items-center">
+                                        <span class="form-selectgroup-check me-3"></span>
+                                        {{ $action_status->name }}
+                                    </div>
                                 </label>
                                 @empty
                                 @endforelse
