@@ -24,7 +24,6 @@
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Created at</th>
-                                <th>Updated at</th>
                                 <th class="w-1"></th>
                             </tr>
                         </thead>
@@ -41,7 +40,6 @@
                                         {{ $complaint->actions()->latest()->first()->action_status->name }}</span>
                                 </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
-                                <td>{{ $complaint->updated_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">
                                     <a href="{{ route('complaints.edit', $complaint) }}">Edit</a>
                                 </td>

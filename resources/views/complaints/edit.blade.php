@@ -57,14 +57,21 @@
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Complaint Types</label>
                         <div class="col">
-                            <select class="form-select" name="complaint_type_id">
-                                <option></option>
+                            <div class="form-selectgroup">
                                 @forelse ($complaint_types as $complaint_type)
-                                <option value="{{ $complaint_type->id }}" @selected($complaint_type->id ===
-                                    $complaint->complaint_type_id)>{{ $complaint_type->name }}</option>
+                                <label class="form-selectgroup-item">
+                                    <input
+                                        type="radio"
+                                        name="complaint_type_id"
+                                        value="{{ $complaint_type->id }}"
+                                        class="form-selectgroup-input"
+                                        @checked($complaint_type->id === $complaint->complaint_type_id)
+                                    >
+                                    <span class="form-selectgroup-label">{{ $complaint_type->name }}</span>
+                                </label>
                                 @empty
                                 @endforelse
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -121,13 +128,21 @@
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Status</label>
                         <div class="col">
-                            <select class="form-select" name="action_status_id">
-                                <option></option>
+                            <div class="form-selectgroup">
                                 @forelse ($action_statuses as $action_status)
-                                <option value="{{ $action_status->id }}">{{ $action_status->name }}</option>
+                                <label class="form-selectgroup-item">
+                                    <input
+                                        type="radio"
+                                        name="action_status_id"
+                                        value="{{ $action_status->id }}"
+                                        class="form-selectgroup-input"
+                                        @checked($action_status->id === $complaint->action_status_id)
+                                    >
+                                    <span class="form-selectgroup-label">{{ $action_status->name }}</span>
+                                </label>
                                 @empty
                                 @endforelse
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 row">
