@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Complaint;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/complaints', App\Http\Controllers\ComplaintController::class);
+Route::resource('/actions', App\Http\Controllers\ActionController::class);
+
+Route::get('/mail-preview', function () {
+    $complaint = Complaint::find(1);
+    return (new App\Notifications\NewComplaintNotification($complaint))->toMail(auth()->user());
+});

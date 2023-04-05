@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('complaints', function (Blueprint $table) {
+        Schema::create('action_statuses', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
-            $table->string('title');
-            $table->text('body');
-            $table->integer('complaint_type_id');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('complaints');
+        Schema::dropIfExists('action_statuses');
     }
 };

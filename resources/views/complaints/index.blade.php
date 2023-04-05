@@ -7,6 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">{{ __('Complaints') }}</div>
+                    <div class="card-actions">
+                        <a href="{{ route('complaints.create') }}" class="btn btn-primary">
+                            Add New
+                        </a>
+                    </div>
                 </div>
 
                 <div class="table-responsive">
@@ -17,6 +22,7 @@
                                 <th>ID</th>
                                 <th>Title</th>
                                 <th>Type</th>
+                                <th>Status</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
                                 <th class="w-1"></th>
@@ -29,6 +35,7 @@
                                 <td>{{ $complaint->id }}</td>
                                 <td>{{ $complaint->title }}</td>
                                 <td>{{ $complaint->complaint_type->name }}</td>
+                                <td>{{ $complaint->actions()->latest()->first()->status }}</td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                                 <td>{{ $complaint->updated_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">

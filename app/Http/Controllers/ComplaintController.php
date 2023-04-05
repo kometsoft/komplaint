@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
+use Illuminate\Support\Str;
+use App\Models\ComplaintType;
 use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
-use App\Models\Complaint;
-use App\Models\ComplaintType;
+use App\Notifications\NewComplaintNotification;
 
 class ComplaintController extends Controller
 {
@@ -24,7 +26,10 @@ class ComplaintController extends Controller
      */
     public function create()
     {
-        //
+        $complaint = new Complaint();
+        $complaint_types = ComplaintType::all();
+
+        return view('complaints.create', compact('complaint', 'complaint_types'));
     }
 
     /**
@@ -32,7 +37,22 @@ class ComplaintController extends Controller
      */
     public function store(StoreComplaintRequest $request)
     {
-        //
+        $complaint = Complaint::create([
+            'uuid' => Str::uuid(),
+            'title' => $request->title,
+            'body' => $request->body,
+            'complaint_type_id' => $request->complaint_type_id,
+        ]);
+
+        $complaint->actions()->create([
+            'status' => 'Pending',
+            'description' => 'Complaint will be reviewed',
+            'complaint_id' => $complaint->id,
+        ]);
+
+        \App\Models\User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
+
+        return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
     }
 
     /**
@@ -49,8 +69,12 @@ class ComplaintController extends Controller
     public function edit(Complaint $complaint)
     {
         $complaint_types = ComplaintType::all();
+        $action_statuses = collect([
+            (object) ['name' => 'In Progress'],
+            (object) ['name' => 'Completed'],
+        ]);
 
-        return view('complaints.edit', compact('complaint', 'complaint_types'));
+        return view('complaints.edit', compact('complaint', 'complaint_types', 'action_statuses'));
     }
 
     /**
@@ -58,7 +82,13 @@ class ComplaintController extends Controller
      */
     public function update(UpdateComplaintRequest $request, Complaint $complaint)
     {
-        dd($request->all());
+        $complaint->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'complaint_type_id' => $request->complaint_type_id,
+        ]);
+
+        return back()->with('success', 'Record has been saved!');
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Models\User;
 
 trait Causer
 {
-    public static function bootCauser()
+    public static function booted()
     {
         static::creating(function ($model) {
             $model->created_by = auth()->id();

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(10)->create();
-        \App\Models\Complaint::factory(1000)->create();
+        \App\Models\Complaint::factory(200)->create();
+        \App\Models\Action::factory(1000)->create();
     }
 }

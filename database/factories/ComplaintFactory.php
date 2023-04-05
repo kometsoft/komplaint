@@ -17,6 +17,7 @@ class ComplaintFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => fake()->uuid(),
             'title' => fake()->sentence(),
             'body' => fake()->paragraph(),
             'complaint_type_id' => \App\Models\ComplaintType::pluck('id')->random(),
