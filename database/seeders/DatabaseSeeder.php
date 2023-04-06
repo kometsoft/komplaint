@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            \Database\Seeders\ComplaintTypeSeeder::class,
             \Database\Seeders\ActionStatusSeeder::class,
         ]);
 
