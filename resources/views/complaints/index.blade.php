@@ -8,9 +8,12 @@
                 <div class="card-header">
                     <div class="card-title">{{ __('Complaints') }}</div>
                     <div class="card-actions">
-                        <a href="{{ route('complaints.create') }}" class="btn btn-primary">
-                            Add New
-                        </a>
+                        <div class="btn-list">
+                            @include('complaints._filter')
+                            <a href="{{ route('complaints.create') }}" class="btn btn-primary">
+                                Add New
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -34,8 +37,8 @@
                                 <td>{{ $complaint->title }}</td>
                                 <td>
                                     <span
-                                        class="badge {{ $complaint->actions()->latest()->first()->action_status->class }}">
-                                        {{ $complaint->actions()->latest()->first()->action_status->name }}</span>
+                                        class="badge {{ $complaint->actions()->latest()->first()?->action_status->class }}">
+                                        {{ $complaint->actions()->latest()->first()?->action_status->name }}</span>
                                 </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">
@@ -52,7 +55,7 @@
                 </div>
 
                 <div class="card-footer pb-0">
-                    {{ $complaints->links() }}
+                    {{ $complaints->withQueryString()->links() }}
                 </div>
             </div>
         </div>
