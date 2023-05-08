@@ -24,6 +24,7 @@ class StoreComplaintRequest extends FormRequest
         return [
             'title' => ['required'],
             'body' => ['required'],
+            'attachment' => ['required'],
         ];
     }
 }
