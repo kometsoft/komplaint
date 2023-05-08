@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row row-cards justify-content-center">
         @if ($errors->isNotEmpty())
-        <div class="col-md-10">
+        <div class="col-md-8">
             <div class="alert alert-danger" role="alert">
                 <h4 class="alert-title">An error occured!</h4>
                 <ul class="">
@@ -17,7 +17,7 @@
         @endif
 
         @if (session('success'))
-        <div class="col-md-10">
+        <div class="col-md-8">
             <div class="alert alert-success" role="alert">
                 <h4 class="alert-title">Success!</h4>
                 <div>{{ session('success') }}</div>
@@ -25,7 +25,7 @@
         </div>
         @endif
 
-        <div class="col-md-10">
+        <div class="col-md-8">
             <form action="{{ route('complaints.store') }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
                 <div class="card-header">
