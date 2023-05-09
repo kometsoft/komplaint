@@ -16,13 +16,13 @@
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Title</label>
                         <div class="col">
-                            <input type="text" class="form-control" name="title" value="{{ $complaint->title }}">
+                            <input type="text" class="form-control" name="title" value="{{ old('title', $complaint->title) }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label required">Body</label>
                         <div class="col">
-                            <textarea rows="5" class="form-control" name="body">{{ $complaint->body }}</textarea>
+                            <textarea rows="5" class="form-control" name="body">{{ old('body', $complaint->body) }}</textarea>
                         </div>
                     </div>
                     <div class="mb-3 row">

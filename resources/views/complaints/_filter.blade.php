@@ -29,9 +29,9 @@
                                     <input
                                         type="radio"
                                         name="filter[action_status_id]"
+                                        class="form-selectgroup-input"
                                         value="{{ $action_status->id }}"
                                         @checked($action_status->id == (request()->filter['action_status_id'] ?? null))
-                                        class="form-selectgroup-input"
                                     >
                                     <div class="form-selectgroup-label d-flex align-items-center">
                                         <span class="form-selectgroup-check me-3"></span>
