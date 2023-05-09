@@ -37,8 +37,8 @@
                                 <td>{{ $complaint->title }}</td>
                                 <td>
                                     <span
-                                        class="badge {{ $complaint->actions()->latest()->first()?->action_status->class }}">
-                                        {{ $complaint->actions()->latest()->first()?->action_status->name }}</span>
+                                        class="badge {{ $complaint->action->action_status->class }}">
+                                        {{ $complaint->action->action_status->name }}</span>
                                 </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">

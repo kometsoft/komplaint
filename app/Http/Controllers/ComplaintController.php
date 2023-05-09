@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Complaint;
+use App\Models\{Complaint, ActionStatus};
 use Illuminate\Support\Str;
-use App\Models\ComplaintType;
-use App\Http\Requests\StoreComplaintRequest;
-use App\Http\Requests\UpdateComplaintRequest;
-use App\Models\ActionStatus;
-use App\Notifications\NewComplaintNotification;
+use App\Http\Requests\{StoreComplaintRequest, UpdateComplaintRequest};
 
 class ComplaintController extends Controller
 {
@@ -17,7 +13,15 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = Complaint::latest()->paginate(20);
+        $complaints = Complaint::query()
+            ->with('action.action_status')
+            ->when(isset(request()->filter['action_status_id']), function($query){
+                $query->whereHas('action', function ($query) {
+                    $query->where('action_status_id', request()->filter['action_status_id']);
+                });
+            })
+            ->latest()
+            ->paginate(20);
 
         $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
 

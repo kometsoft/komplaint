@@ -19,6 +19,11 @@ class Complaint extends Model implements HasMedia
         return $this->hasMany(Action::class);
     }
 
+    public function action()
+    {
+        return $this->hasOne(Action::class)->latestOfMany();
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
