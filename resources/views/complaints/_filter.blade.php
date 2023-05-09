@@ -68,11 +68,8 @@
     		buttonText: {
     			previousMonth: '<i class="ti ti-chevron-left"></i>',
     			nextMonth: '<i class="ti ti-chevron-right"></i>',
-    			reset: '<i class="ti ti-trash"></i>',
     		},
             format: 'DD/MM/YYYY',
-            resetButton: true,
-
     	})
     });
 </script>

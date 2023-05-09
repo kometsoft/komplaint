@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Complaints')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -46,7 +48,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="100">No records found.</td>
+                                <td colspan="100" class="text-center">No records found.</td>
                             </tr>
                             @endforelse
                         </tbody>

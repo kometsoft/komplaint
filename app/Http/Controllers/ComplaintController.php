@@ -32,7 +32,7 @@ class ComplaintController extends Controller
                 });
             })
             ->latest()
-            ->paginate(20);
+            ->paginate(10);
 
         $action_statuses = ActionStatus::select('id', 'name')->get();
 
@@ -70,7 +70,9 @@ class ComplaintController extends Controller
             ->addMediaFromRequest('attachment')
             ->toMediaCollection();
 
-        User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
+        User::where('email', 'user@domain.com')
+            ->first()
+            ->notify(new NewComplaintNotification($complaint));
 
         return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
     }
@@ -108,6 +110,7 @@ class ComplaintController extends Controller
             $complaint
                 ->addMediaFromRequest('attachment')
                 ->toMediaCollection();
+            $complaint->touch();
         }
 
         return back()->with('success', 'Record has been saved!');
