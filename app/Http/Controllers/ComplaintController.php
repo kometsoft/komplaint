@@ -19,7 +19,9 @@ class ComplaintController extends Controller
     {
         $complaints = Complaint::latest()->paginate(20);
 
-        return view('complaints.index', compact('complaints'));
+        $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
+
+        return view('complaints.index', compact('complaints', 'action_statuses'));
     }
 
     /**

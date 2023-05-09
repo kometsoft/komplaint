@@ -17,18 +17,30 @@
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label">Title</label>
                         <div class="col">
-                            <input type="text" class="form-control" name="title" value="{{ request()->title }}">
+                            <input type="text" class="form-control" name="filter[title]" value="{{ request()->filter['title'] ?? null }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label">Status</label>
                         <div class="col">
-                            <select class="form-select">
-                                <option></option>
-                                <option>Pending</option>
-                                <option>In Progress</option>
-                                <option>Completed</option>
-                            </select>
+                            <div class="form-selectgroup">
+                                @forelse ($action_statuses as $action_status)
+                                <label class="form-selectgroup-item">
+                                    <input
+                                        type="radio"
+                                        name="filter[action_status_id]"
+                                        value="{{ $action_status->id }}"
+                                        @checked($action_status->id == (request()->filter['action_status_id'] ?? null))
+                                        class="form-selectgroup-input"
+                                    >
+                                    <div class="form-selectgroup-label d-flex align-items-center">
+                                        <span class="form-selectgroup-check me-3"></span>
+                                        {{ $action_status->name }} 
+                                    </div>
+                                </label>
+                                @empty
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>

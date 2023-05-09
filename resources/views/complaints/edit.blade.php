@@ -136,7 +136,6 @@
                                         type="radio"
                                         name="action_status_id"
                                         value="{{ $action_status->id }}"
-                                        @checked($action_status->id === $complaint->action_status_id)
                                         class="form-selectgroup-input"
                                     >
                                     <div class="form-selectgroup-label d-flex align-items-center">
