@@ -36,8 +36,7 @@
                                 <td>{{ $complaint->id }}</td>
                                 <td>{{ $complaint->title }}</td>
                                 <td>
-                                    <span
-                                        class="badge {{ $complaint->action->action_status->class }}">
+                                    <span class="badge {{ $complaint->action->action_status->class }}">
                                         {{ $complaint->action->action_status->name }}</span>
                                 </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
@@ -53,10 +52,11 @@
                         </tbody>
                     </table>
                 </div>
-
+                @if ($complaints->hasPages())
                 <div class="card-footer pb-0">
                     {{ $complaints->withQueryString()->links() }}
                 </div>
+                @endif
             </div>
         </div>
     </div>

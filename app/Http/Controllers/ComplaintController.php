@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\{Complaint, ActionStatus};
 use App\Notifications\NewComplaintNotification;
 use App\Http\Requests\{StoreComplaintRequest, UpdateComplaintRequest};
@@ -20,6 +21,10 @@ class ComplaintController extends Controller
             ->with('action.action_status')
             ->when(isset($request->filter['title']), function ($query) use ($request) {
                 $query->where('title', 'LIKE', '%' . $request->filter['title'] . '%');
+            })
+            ->when(isset($request->filter['created_at']), function ($query) use ($request) {
+                $date = Carbon::createFromFormat('d/m/Y', $request->filter['created_at'])->format('Y-m-d');
+                $query->whereDate('created_at', '=', $date);
             })
             ->when(isset($request->filter['action_status_id']), function ($query) use ($request) {
                 $query->whereHas('action', function ($query) use ($request) {
@@ -113,6 +118,8 @@ class ComplaintController extends Controller
      */
     public function destroy(Complaint $complaint)
     {
-        //
+        $complaint->delete();
+
+        return to_route('complaints.index')->with('success', 'Record has been deleted!');
     }
 }

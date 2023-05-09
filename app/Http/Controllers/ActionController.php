@@ -35,7 +35,7 @@ class ActionController extends Controller
             'complaint_id' => $request->complaint_id,
         ]);
 
-        return back()->withFragment('actions-card')->with('success', 'Record has been saved!');
+        return back()->withFragment('card-action')->with('success', 'Record has been saved!');
     }
 
     /**
