@@ -23,7 +23,7 @@ class ComplaintController extends Controller
             ->latest()
             ->paginate(20);
 
-        $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
+        $action_statuses = ActionStatus::select('id', 'name')->get();
 
         return view('complaints.index', compact('complaints', 'action_statuses'));
     }
@@ -59,7 +59,7 @@ class ComplaintController extends Controller
             ->addMediaFromRequest('attachment')
             ->toMediaCollection();
 
-        // \App\Models\User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
+        User::where('email', 'user@domain.com')->first()->notify(new NewComplaintNotification($complaint));
 
         return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
     }
@@ -77,7 +77,7 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
-        $action_statuses = ActionStatus::whereIn('id', [2, 3])->get();
+        $action_statuses = ActionStatus::select('id', 'name')->whereIn('id', [2, 3])->get();
 
         return view('complaints.edit', compact('complaint', 'action_statuses'));
     }

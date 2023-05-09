@@ -3,28 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row row-cards">
-        @if ($errors->isNotEmpty())
-        <div class="col-md-12">
-            <div class="alert alert-danger mb-0" role="alert">
-                <h4 class="alert-title">An error occured!</h4>
-                <ul class="">
-                    @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        @endif
-
-        @if (session('success'))
-        <div class="col-md-12">
-            <div class="alert alert-success mb-0" role="alert">
-                <h4 class="alert-title">Success!</h4>
-                <div>{{ session('success') }}</div>
-            </div>
-        </div>
-        @endif
-
         <div class="col-md-6">
             <form action="{{ route('complaints.update', $complaint) }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
@@ -101,16 +79,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="row">
-                        <label class="col-3 col-form-label pt-0">I certify that the information entered is
-                            accurate.</label>
-                        <div class="col">
-                            <label class="form-check">
-                                <input class="form-check-input" type="checkbox" checked="">
-                                <span class="form-check-label">Option 1</span>
-                            </label>
-                        </div>
-                    </div> --}}
                 </div>
             </form>
         </div>

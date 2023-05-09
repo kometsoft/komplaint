@@ -37,7 +37,8 @@ class NewComplaintNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('New Complaint: ' . $this->complaint->title)
+            ->greeting('Hi!')
+            ->subject('New Complaint')
             ->line($this->complaint->title)
             ->action('View', route('complaints.edit', $this->complaint))
             ->line('Please update the complaint status.');
