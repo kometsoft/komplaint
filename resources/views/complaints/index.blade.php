@@ -11,6 +11,7 @@
                     <div class="card-title">{{ __('Complaints') }}</div>
                     <div class="card-actions">
                         <div class="btn-list">
+                            @include('complaints._sort')
                             @include('complaints._filter')
                             <a href="{{ route('complaints.create') }}" class="btn btn-primary">
                                 Add New
