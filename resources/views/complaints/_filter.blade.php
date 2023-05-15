@@ -18,7 +18,7 @@
                         <label class="col-md-3 col-form-label">Title</label>
                         <div class="col">
                             <input type="text" class="form-control" name="filter[title]"
-                                value="{{ request()->filter['title'] ?? null }}">
+                                value="{{ request()->input('filter.title') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -29,7 +29,7 @@
                                     <option value=""></option>
                                     @forelse($action_statuses as $action_status)
                                     <option value="{{ $action_status->id }}" @selected($action_status->id ==
-                                        (request()->filter['action_status_id'] ?? null))
+                                        (request()->input('filter.action_status_id')))
                                         >
                                         {{ $action_status->name }}
                                     </option>
@@ -44,7 +44,7 @@
                         <div class="col">
                             <div class="input-icon">
                                 <input class="form-control" id="datepicker" name="filter[created_at]"
-                                    value="{{ request()->filter['created_at'] ?? null }}" />
+                                    value="{{ request()->input('filter.created_at') }}" />
                                 <span class="input-icon-addon">
                                     <i class=" ti ti-calendar"></i>
                                 </span>
@@ -57,8 +57,10 @@
                             <div class="form-group">
                                 <select name="filter[deleted]" name="deleted" class="form-select">
                                     <option value="">Without deleted records</option>
-                                    <option value="with" @selected(request()->input('filter.deleted') === 'with')>With deleted records</option>
-                                    <option value="only" @selected(request()->input('filter.deleted') === 'only')>Only deleted records</option>
+                                    <option value="with" @selected(request()->input('filter.deleted') === 'with')>With
+                                        deleted records</option>
+                                    <option value="only" @selected(request()->input('filter.deleted') === 'only')>Only
+                                        deleted records</option>
                                 </select>
                             </div>
                         </div>

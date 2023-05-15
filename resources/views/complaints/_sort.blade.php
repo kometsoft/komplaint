@@ -1,6 +1,6 @@
 <a href="#" class="btn btn-icon position-relative" data-bs-toggle="modal" data-bs-target="#modal-sort">
     <i class="ti ti-sort-ascending icon"></i>
-    @if (collect(request()->query())->except('page')->only(['filter'])->flatten()->filter()->count())
+    @if (collect(request()->query())->except('page')->only(['sortBy'])->flatten()->filter()->count())
     <span class="badge bg-danger badge-notification"></span>
     @endif
 </a>
@@ -18,12 +18,12 @@
                         <label class="col-md-3 col-form-label">Title</label>
                         <div class="col">
                             <input type="text" class="form-control" name="filter[title]"
-                                value="{{ request()->filter['title'] ?? null }}">
+                                value="{{ request()->input('filter.title') }}">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ url()->current() }}" class="btn btn-ghost-primary">{{ __('Reset') }}</a>
+                    <a href="{{ url()->current() }}" class="btn btn-ghost-danger">{{ __('Reset') }}</a>
                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Find') }}</button>
                 </div>
             </form>

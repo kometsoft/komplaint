@@ -20,25 +20,21 @@ class ComplaintController extends Controller
         $complaints = Complaint::query()
             ->with('action.action_status')
             ->when($r->filled('filter.title'), function ($q) use ($r) {
-                $q->where('title', 'LIKE', '%' . $r->filter['title'] . '%');
+                $q->where('title', 'LIKE', '%' . $r->input('filter.title') . '%');
             })
             ->when($r->filled('filter.created_at'), function ($q) use ($r) {
-                $date = Carbon::createFromFormat('d/m/Y', $r->filter['created_at'])->format('Y-m-d');
+                $date = Carbon::createFromFormat('d/m/Y', $r->input('filter.created_at'))->format('Y-m-d');
                 $q->whereDate('created_at', '=', $date);
             })
             ->when($r->filled('filter.action_status_id'), function ($q) use ($r) {
                 $q->whereHas('action', function ($q) use ($r) {
-                    $q->where('action_status_id', $r->filter['action_status_id']);
+                    $q->where('action_status_id', $r->input('filter.action_status_id'));
                 });
             })
             ->when($r->filled('filter.deleted'), function ($q) use ($r) {
                 $q
-                    ->when($r->input('filter.deleted') === 'with', function ($q) {
-                        return $q->withTrashed();
-                    })
-                    ->when($r->input('filter.deleted') === 'only', function ($q) {
-                        return $q->onlyTrashed();
-                    });
+                    ->when($r->input('filter.deleted') === 'with', fn ($q) => $q->withTrashed())
+                    ->when($r->input('filter.deleted') === 'only', fn ($q) => $q->onlyTrashed());
             })
             ->latest()
             ->paginate(10);
