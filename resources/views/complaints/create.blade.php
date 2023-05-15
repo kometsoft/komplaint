@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <form action="{{ route('complaints.store') }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
                 <div class="card-header">

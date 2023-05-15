@@ -86,8 +86,8 @@
         <main class="pt-4 pb-5">
             @if ($errors->isNotEmpty())
             <div class="container mb-3">
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
                         <div class="alert alert-danger mb-0" role="alert">
                             <h4 class="alert-title">An error occured!</h4>
                             <ul class="">
@@ -103,8 +103,8 @@
 
             @if (session('success'))
             <div class="container mb-3">
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
                         <div class="alert alert-success mb-0" role="alert">
                             <h4 class="alert-title">Success!</h4>
                             <div>{{ session('success') }}</div>
