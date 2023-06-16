@@ -75,9 +75,9 @@ class ComplaintController extends Controller
             ->addMediaFromRequest('attachment')
             ->toMediaCollection();
 
-        User::where('email', 'user@domain.com')
-            ->first()
-            ->notify(new NewComplaintNotification($complaint));
+        // User::where('email', 'user@domain.com')
+        //     ->first()
+        //     ->notify(new NewComplaintNotification($complaint));
 
         return to_route('complaints.edit', $complaint)->with('success', 'Record has been saved!');
     }
