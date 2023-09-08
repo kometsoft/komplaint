@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +21,6 @@ class ComplaintFactory extends Factory
             'uuid' => fake()->uuid(),
             'title' => fake()->sentence(),
             'body' => fake()->paragraph(),
-            'created_by' => \App\Models\User::pluck('id')->random(),
-            'created_by' => \App\Models\User::pluck('id')->random(),
         ];
     }
 }

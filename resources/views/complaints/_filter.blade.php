@@ -1,5 +1,5 @@
 <a href="#" class="btn btn-icon position-relative" data-bs-toggle="modal" data-bs-target="#modal-filter">
-    <i class="ti ti-filter icon"></i>
+    <i class="ri-filter-line"></i>
     @if (collect(request()->query())->except('page')->only(['filter'])->flatten()->filter()->count())
     <span class="badge bg-danger badge-notification"></span>
     @endif
@@ -46,7 +46,7 @@
                                 <input class="form-control" id="datepicker" name="filter[created_at]"
                                     value="{{ request()->input('filter.created_at') }}" />
                                 <span class="input-icon-addon">
-                                    <i class=" ti ti-calendar"></i>
+                                    <i class="ri-calendar"></i>
                                 </span>
                             </div>
                         </div>

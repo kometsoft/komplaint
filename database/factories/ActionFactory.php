@@ -20,7 +20,6 @@ class ActionFactory extends Factory
             'complaint_id' => \App\Models\Complaint::pluck('id')->random(),
             'description' => fake()->sentence(),
             'action_status_id' => \App\Models\ActionStatus::pluck('id')->random(),
-            'created_by' => \App\Models\User::pluck('id')->random(),
         ];
     }
 }

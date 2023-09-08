@@ -21,11 +21,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@domain.com',
         ]);
 
-        \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@domain.com',
-        ]);
-
         \App\Models\User::factory(10)->create();
         \App\Models\Complaint::factory(200)->create();
         \App\Models\Action::factory(1000)->create();

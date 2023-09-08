@@ -14,9 +14,9 @@ class ActionStatusSeeder extends Seeder
     public function run(): void
     {
         DB::table('action_statuses')->insert([
-            ['name' => 'Pending', 'class' => 'bg-danger-lt'],
-            ['name' => 'In Progress', 'class' => 'bg-warning-lt'],
-            ['name' => 'Completed', 'class' => 'bg-success-lt'],
+            ['name' => 'Pending', 'class' => 'bg-danger'],
+            ['name' => 'In Progress', 'class' => 'bg-warning'],
+            ['name' => 'Completed', 'class' => 'bg-success'],
         ]);
     }
 }

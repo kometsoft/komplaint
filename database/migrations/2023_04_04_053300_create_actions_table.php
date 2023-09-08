@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('complaint_id')->nullable();
             $table->string('description')->nullable();
             $table->string('action_status_id')->nullable();
-            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -19,23 +19,6 @@ class ComplaintController extends Controller
     {
         $complaints = Complaint::query()
             ->with('action.action_status')
-            ->when($r->filled('filter.title'), function ($q) use ($r) {
-                $q->where('title', 'LIKE', '%' . $r->input('filter.title') . '%');
-            })
-            ->when($r->filled('filter.created_at'), function ($q) use ($r) {
-                $date = Carbon::createFromFormat('d/m/Y', $r->input('filter.created_at'))->format('Y-m-d');
-                $q->whereDate('created_at', '=', $date);
-            })
-            ->when($r->filled('filter.action_status_id'), function ($q) use ($r) {
-                $q->whereHas('action', function ($q) use ($r) {
-                    $q->where('action_status_id', $r->input('filter.action_status_id'));
-                });
-            })
-            ->when($r->filled('filter.deleted'), function ($q) use ($r) {
-                $q
-                    ->when($r->input('filter.deleted') === 'with', fn ($q) => $q->withTrashed())
-                    ->when($r->input('filter.deleted') === 'only', fn ($q) => $q->onlyTrashed());
-            })
             ->latest()
             ->paginate(10);
 
@@ -63,17 +46,18 @@ class ComplaintController extends Controller
             'uuid' => Str::uuid(),
             'title' => $request->title,
             'body' => $request->body,
-        ]);
-
-        $complaint->actions()->create([
-            'action_status_id' => ActionStatus::PENDING,
-            'description' => 'Complaint will be reviewed',
-            'complaint_id' => $complaint->id,
+            'created_by' => auth()->id()
         ]);
 
         $request->hasFile('attachment') && $complaint
             ->addMediaFromRequest('attachment')
             ->toMediaCollection();
+
+        $complaint->actions()->create([
+            'complaint_id' => $complaint->id,
+            'action_status_id' => ActionStatus::PENDING,
+            'description' => 'Complaint will be reviewed',
+        ]);
 
         // User::where('email', 'user@domain.com')
         //     ->first()
@@ -108,6 +92,7 @@ class ComplaintController extends Controller
         $complaint->update([
             'title' => $request->title,
             'body' => $request->body,
+            'updated_by' => auth()->id()
         ]);
 
         if ($request->hasFile('attachment')) {

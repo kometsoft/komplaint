@@ -7,16 +7,12 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">{{ __('Complaints') }}</div>
-                    <div class="card-actions">
-                        <div class="btn-list">
-                            {{-- @include('complaints._sort') --}}
-                            @include('complaints._filter')
-                            <a href="{{ route('complaints.create') }}" class="btn btn-primary">
-                                Add New
-                            </a>
-                        </div>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>{{ __('Complaints') }}</h5>
+                    <div>
+                        <a href="{{ route('complaints.create') }}" class="btn btn-primary">
+                            Add New
+                        </a>
                     </div>
                 </div>
 
@@ -35,12 +31,12 @@
                         <tbody>
                             @forelse ($complaints as $complaint)
                             <tr>
-                                <td>{{ $loop->iteration }}.</td>
+                                <td>{{ $complaints->firstItem() + $loop->index }}.</td>
                                 <td>{{ $complaint->id }}</td>
                                 <td>{{ $complaint->title }}</td>
                                 <td>
-                                    <span class="badge {{ $complaint->action->action_status->class }}">
-                                        {{ $complaint->action->action_status->name }}</span>
+                                    <span class="badge {{ $complaint->action?->action_status->class }}">
+                                        {{ $complaint->action?->action_status->name }}</span>
                                 </td>
                                 <td>{{ $complaint->created_at?->format('d M Y h:i A') }}</td>
                                 <td class="d-flex gap-3">
@@ -55,12 +51,12 @@
                         </tbody>
                     </table>
                 </div>
-                @if ($complaints->hasPages())
-                <div class="card-footer pb-0">
-                    {{ $complaints->withQueryString()->links() }}
-                </div>
-                @endif
             </div>
+            @if ($complaints->hasPages())
+            <div class="mt-3">
+                {{ $complaints->withQueryString()->links() }}
+            </div>
+            @endif
         </div>
     </div>
 </div>

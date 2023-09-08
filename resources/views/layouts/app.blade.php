@@ -89,8 +89,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="alert alert-danger mb-0" role="alert">
-                            <h4 class="alert-title">An error occured!</h4>
-                            <ul class="">
+                            <h5 class="alert-title">An error occured!</h5>
+                            <ul class="mb-0">
                                 @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>
                                 @endforeach
@@ -106,7 +106,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="alert alert-success mb-0" role="alert">
-                            <h4 class="alert-title">Success!</h4>
+                            <h5 class="alert-title">Success!</h5>
                             <div>{{ session('success') }}</div>
                         </div>
                     </div>

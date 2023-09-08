@@ -8,9 +8,9 @@
         <div class="col-md-10">
             <form action="{{ route('complaints.store') }}" method="post" class="card" enctype="multipart/form-data">
                 @csrf
-                <div class="card-header">
-                    <div class="card-title">{{ __('Complaints') }}</div>
-                    <div class="card-actions">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title">{{ __('New Complaints') }}</h5>
+                    <div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>

@@ -4,26 +4,22 @@
 
 @section('content')
 <div class="container">
-    <div class="row row-cards justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">{{ __('Complaints') }}</div>
-                    <div class="card-actions">
-                        <div class="btn-list">
-                            <form action="{{ route('complaints.destroy', $complaint) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?')">Delete</button>
-                            </form>
-                            <button type="submit" form="form-complaint" class="btn btn-primary">Save</button>
-                        </div>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>{{ __('Complaints') }}</h5>
+                    <div class="d-flex align-items-center">
+                        <form action="{{ route('complaints.destroy', $complaint) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Are you sure you want to delete this complaint?')">Delete</button>
+                        </form>
+                        <button type="submit" form="form-complaint" class="btn btn-primary">Save</button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="form-complaint" action="{{ route('complaints.update', $complaint) }}" method="post"
-                        enctype="multipart/form-data">
-
+                    <form id="form-complaint" action="{{ route('complaints.update', $complaint) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="mb-3 row">
@@ -35,15 +31,13 @@
                         <div class="mb-3 row">
                             <label class="col-md-3 col-form-label required">Title</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="title"
-                                    value="{{ old('title', $complaint->title) }}">
+                                <input type="text" class="form-control" name="title" value="{{ old('title', $complaint->title) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label class="col-md-3 col-form-label required">Body</label>
                             <div class="col">
-                                <textarea rows="5" class="form-control"
-                                    name="body">{{ old('body', $complaint->body) }}</textarea>
+                                <textarea rows="5" class="form-control" name="body">{{ old('body', $complaint->body) }}</textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -54,8 +48,7 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="btn-list">
                                             @foreach ($complaint->getMedia() as $media)
-                                            <a href="{{ $media->getUrl() }}" target="_blank"
-                                                class="btn btn-outline-primary">
+                                            <a href="{{ $media->getUrl() }}" target="_blank" class="btn btn-outline-primary">
                                                 {{ $media->file_name }}
                                             </a>
                                             @endforeach
@@ -63,7 +56,7 @@
                                     </div>
                                     @endif
                                     <div class="col-md-10">
-                                        <input type="file" class="form-control" name="attachments[]">
+                                        <input type="file" class="form-control" name="attachment">
                                     </div>
                                 </div>
                             </div>
@@ -99,33 +92,28 @@
             </div>
         </div>
 
-        <div class="col-md-10">
-            <div class="card" id="card-action">
-                <div class="card-header">
-                    <div class="card-title">{{ __('Actions') }}</div>
-                    <div class="card-actions">
+        <div class="col-md-10 mt-4">
+            <div class="card" id="actions">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>{{ __('Actions') }}</h5>
+                    <div>
                         <button type="submit" form="form-action" class="btn btn-primary">Save</button>
                     </div>
                 </div>
                 <div class="card-body border-bottom">
-                    <form id="form-action"
-                        action="{{ route('actions.store', ['complaint_id' => $complaint->id]) }}" method="post">
+                    <form id="form-action" action="{{ route('actions.store', ['complaint_id' => $complaint->id]) }}" method="post">
                         @csrf
                         <div class="mb-3 row">
                             <label class="col-md-3 col-form-label required">Status</label>
                             <div class="col">
                                 <div class="form-selectgroup">
                                     @forelse ($action_statuses as $action_status)
-                                    <label class="form-selectgroup-item">
-                                        <input type="radio" name="action_status_id" class="form-selectgroup-input"
-                                            value="{{ $action_status->id }}" @checked($action_status->id ==
-                                        old('action_status_id'))
-                                        >
-                                        <div class="form-selectgroup-label d-flex align-items-center">
-                                            <span class="form-selectgroup-check me-3"></span>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="action_status_id" id="action_status_{{ $action_status->id }}" value="{{ $action_status->id }}" @checked($action_status->id == old('action_status_id'))>
+                                        <label class="form-check-label" for="action_status_{{ $action_status->id }}">
                                             {{ $action_status->name }}
-                                        </div>
-                                    </label>
+                                        </label>
+                                    </div>
                                     @empty
                                     @endforelse
                                 </div>
@@ -134,8 +122,7 @@
                         <div class="mb-3 row">
                             <label class="col-md-3 col-form-label required">Description</label>
                             <div class="col">
-                                <textarea rows="5" class="form-control"
-                                    name="description">{{ old('description') }}</textarea>
+                                <textarea rows="5" class="form-control" name="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                     </form>
